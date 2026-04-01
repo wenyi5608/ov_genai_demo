@@ -13,6 +13,8 @@ openvino_genai can be download from https://storage.openvinotoolkit.org/reposito
 
 ```
 <OpenVINO_GenAI_DIR>\setupvars.bat
+git clone https://github.com/wenyi5608/ov_genai_demo.git
+cd ov_genai_demo
 cd genai_sparse_attention
 mkdir build
 cmake -S . -B build && cmake --build build --config Release
