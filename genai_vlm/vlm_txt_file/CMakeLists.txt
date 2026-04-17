@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(genai_vlm_txt_dir)
+project(genai_vlm_txt)
 
 # Set C++ Standard
 set(CMAKE_CXX_STANDARD 20)
