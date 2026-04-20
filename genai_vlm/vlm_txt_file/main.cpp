@@ -333,7 +333,28 @@ int main(int argc, char* argv[]) try {
         std::ifstream file(prompt_path);
         std::getline(file, str, '\0');
 
-        std::cout << str.c_str() << std::endl;
+        if (test_mode == TestMode::memory || test_mode == TestMode::infer_with_lora_memory) {
+            vlm_res = pipe.generate(str, ov::genai::generation_config(config),
+                ov::genai::streamer(streamer));
+        }
+        else {
+            vlm_res = pipe.generate(str, ov::genai::generation_config(config));
+        }
+
+        ov::genai::PerfMetrics metrics = vlm_res.perf_metrics;
+        size_t input_tokens_len = metrics.get_num_input_tokens();
+        size_t num_generated_tokens = metrics.get_num_generated_tokens();
+
+        if (!prompt_idx) {
+            std::cout << "Compile LLM model took " << metrics.get_load_time() << " ms" << std::endl;
+        }
+
+        std::cout << vlm_res.texts[0] << std::endl;
+
+        perf_records.emplace_back(input_tokens_len,
+            num_generated_tokens,
+            metrics.get_ttft().mean,
+            metrics.get_tpot().mean);
     }
 
     if (test_mode == TestMode::performance || test_mode == TestMode::empty_lora_performance ||
