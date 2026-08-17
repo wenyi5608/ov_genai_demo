@@ -30,8 +30,6 @@ find_package(OpenVINOGenAI REQUIRED
         ${INTEL_OPENVINO_DIR} # get the environment variable
     NO_CMAKE_FIND_ROOT_PATH
 )
-
-set(ESCAPED_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
 if(WIN32)
     message("Original: ${CMAKE_CURRENT_SOURCE_DIR}")
     string(REPLACE "/" "\\\\" ESCAPED_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
