@@ -269,7 +269,7 @@ int main(int argc, char* argv[]) try {
         config.adapters = ov::genai::AdapterConfig{};
     } else if (test_mode == TestMode::infer_with_lora_memory
         || test_mode == TestMode::infer_with_lora_performance) {
-        config.adapters = ov::genai::AdapterConfig{adapter, 0.5};
+        config.adapters = ov::genai::AdapterConfig{adapter, genai_args.lora_alpha};
     }
 
     size_t prompt_idx = 0;
